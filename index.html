@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CS 180 Project 2</title>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&family=Montserrat&display=swap" rel="stylesheet">        <meta charset="utf-8">
+        
+
+    <style>
+        body {
+            font-family: 'Montserrat';
+        }
+
+        p {
+            margin-left: 30px;
+            margin-right: 30px;
+            text-align: center;
+        }
+
+        figcaption {
+            text-align: center;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+
+        figure {
+            display: inline-block;
+        }
+
+        #title {
+            text-align: center;
+            font-size: 70px;
+            font-family: 'Kanit';
+            margin-bottom: -24px;
+        }
+
+        #subtitle {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        #section {
+            font-family: 'Kanit';
+            text-align: center;
+            background-color: rgb(50, 170, 50, 0.2);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #subsection {
+            font-family: 'Montserrat';
+            text-align: center;
+            background-color: rgb(50, 150, 250, 0.2);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #mag_small {
+            width: 160px;
+            height: 160px;
+            margin-left: 10px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        #big {
+            width: 320px;
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        #big_centered {
+            width: 320px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #margin_placeholder {
+            margin-left: calc(50% - 510px);
+        }
+    </style>
+    </head>
+    <body>
+        <h1 id="title">CS 180 PROJECT 2</h1>
+        <h1 id="subtitle">Xavier Plourde</div>
+        <h1 id="section">Project Overview</h1>
+        <p>This project involved doing many different image processing techniques, most of which involved convolutions and/or filters in some way. It was a really interesting project, and I had a lot of fun applying the techniques taught in lecture to some of my own images. Every image used here, with the exception of the class examples and the blended picture with the Moon in the very last example, is a picture that I took myself.</p>
+        <h1 id="section">Part 1.1 - Finite Difference Operator</h1>
+        <h2 id="subsection">Overview</h2>
+        <p>For this part, I used the finite difference operator to show the partial derivative in X and Y of the cameraman image. Specifically, I convolved the image with [1, -1] for dX, and with the transpose of [1, -1] for dY, to find the partial derivative images. Next, I found the gradient magnitude image by squaring both images and adding them together, and "binarized" this image by treating all pixels over a certain threshold as 1, and all others as 0.</p>
+        <h2 id="subsection">Results</h2>
+        <figure>
+            <img id="big" src="imgs/1.1_dx.png">
+            <figcaption><em>Partial derivative in X of cameraman image</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/1.1_dy.png">
+            <figcaption><em>Partial derivative in Y of cameraman image</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/1.1_mag.png">
+            <figcaption><em>Gradient magnitude image for cameraman image</em></figcaption>
+        </figure>
+        <br>
+        <br>
+        <div id="margin_placeholder">
+        <figure>
+            <img id="mag_small" src="imgs/1.1_mag1.png">
+            <img id="mag_small" src="imgs/1.1_mag3.png">
+            <img id="mag_small" src="imgs/1.1_mag5.png">
+            <img id="mag_small" src="imgs/1.1_mag7.png">
+            <img id="mag_small" src="imgs/1.1_mag9.png">
+            <figcaption><em>Binarized gradient magnitude images of cameraman image with different threshold values</em></figcaption>
+        </figure>
+        </div>
+        <br>
+        <img id="big_centered" src="imgs/1.1_mag7.png">
+        <figcaption><em>Binarized gradient magnitude image with optimal threshold (0.28)</em></figcaption>
+
+        <h1 id="section">Part 1.2 - Derivative of Gaussian (DoG) Filter</h1>
+
+        <h2 id="subsection">Overview</h2>
+        <p>In this part, I additionally smoothed the image using a Gaussian filter, before applying the finite difference operator to the image, applying the same process above to the smoothed image. After this, I convolved the Gaussian operator with the finite difference operator to make a single operator for the smooth + derivative (DoG Filter), and verified that it produced the same results (not shown).</p>
+        <h2 id="subsection">Results</h2>
+        <figure>
+            <img id="big" src="imgs/1.2_dx_dog.png">
+            <figcaption><em>Partial derivative in X of<br>smoothed cameraman image</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/1.2_dy_dog.png">
+            <figcaption><em>Partial derivative in Y of<br>smoothed cameraman image</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/1.2_mag4.png">
+            <figcaption><em>Gradient magnitude image for<br>smoothed cameraman image</em></figcaption>
+        </figure>
+        <br>
+        <br>
+        <div style="margin-left: calc(50% - 600px);">
+        <figure>
+            <img id="mag_small" src="imgs/1.2_mag1.png">
+            <img id="mag_small" src="imgs/1.2_mag2.png">
+            <img id="mag_small" src="imgs/1.2_mag3.png">
+            <img id="mag_small" src="imgs/1.2_mag4.png">
+            <img id="mag_small" src="imgs/1.2_mag5.png">
+            <img id="mag_small" src="imgs/1.2_mag6.png">
+            <figcaption><em>Binarized gradient magnitude images of smoothed cameraman image with different threshold values</em></figcaption>
+        </figure>
+        </div>
+        <br>
+        <img id="big_centered" src="imgs/1.2_mag4.png">
+        <figcaption><em>Binarized gradient magnitude image with optimal threshold (0.09)</em></figcaption>
+        <br>
+        <div style="margin-left: calc(50% - 520px);">
+            <figure>
+                <img width=420 src="imgs/1.2_x_dog.png">
+                <figcaption><em>DoG filter in X, displayed as image</em></figcaption>
+            </figure>
+            <figure>
+                <img width=350 src="imgs/1.2_y_dog.png">
+                <figcaption><em>DoG filter in Y, displayed as image</em></figcaption>
+            </figure>
+            </div>
+            <h2 id="subsection">Differences Seen</h2>
+            <p>PLACEHOLDER PLACEHOLDER</p>
+        <h1 id="section">Part 2.1 - Image Sharpening</h1>
+        <h2 id="subsection">Overview</h2>
+        <p>For this part, I sharpened several images by blurring them with a Gaussian filter, and subtracting the blurred image from the original. I applied this to the given Taj Mahal image, as well as a blurry image of Mt. Whitney that I took on a camping trip. Additionally, I blurred the sharpened Taj Mahal image, and applied the sharpening procedure again to the blurred image, with interesting results described below.</p>
+        <h2 id="subsection">Results</h2>
+        <div style="margin-left: calc(50% - 650px)">
+        <figure>
+            <img width=560 src="imgs/taj.jpg">
+            <figcaption><em>Original Taj Mahal image</em></figcaption>
+        </figure>
+        <figure>
+            <img width=560 src="imgs/2.1_taj_sharpened.png">
+            <figcaption><em>Sharpened Taj Mahal image</em></figcaption>
+        </figure>
+        <figure>
+            <img width=560 src="imgs/2.1_whitney_blur.png">
+            <figcaption><em>Blurry image of Mt. Whitney</em></figcaption>
+        </figure>
+        <figure>
+            <img width=560 src="imgs/2.1_whitney_sharpened.png">
+            <figcaption><em>Sharpened image of Mt. Whitney</em></figcaption>
+        </figure>
+        <br>
+        <figure>
+            <img width=560 src="imgs/2.1_blurred.png">
+            <figcaption><em>Blurred sharpened image of Taj Mahal</em></figcaption>
+        </figure>
+        <figure>
+            <img width=560 src="imgs/2.1_resharpened.png">
+            <figcaption><em></em>Image: Resharpened blurred image of Taj Mahal</em></figcaption>
+        </figure>
+        <br>
+        </div>
+        <h2 id="subsection">Observations</h2>
+        <p>After resharpening the blurred image, it looks sharp in a similar style to the original sharpened image. However, it is missing some image details from the original image, which makes sense, as these details were lost by the blurring of the original image</p>
+        <h1 id="section">Part 2.2 - Hybrid Images</h1>
+        <h2 id="subsection">Overview</h2>
+        <p>This part involved taking several pairs of images and producing "hybrid images", or images that look different depending on how close to the screen you view them from. This is done by applying a high-pass filter to one image, applying a low-pass filter to the other image, and averaging the two together.</p>
+        <h2 id="subsection">Results</h2>
+        <p>In the spirit of the example given, I first made a hybrid image of myself and my family's cat, Miso.</p>
+        <figure>
+            <img id="big" src="imgs/xavier.jpg">
+            <figcaption><em>Me (Low-Pass)</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/miso.jpg">
+            <figcaption><em>Miso (High-Pass)</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/xavier_miso.png">
+            <figcaption><em>Hybrid image</em></figcaption>
+        </figure>
+        <br>
+        <p>Next, I made a hybrid image of two pictures I took from the same spot at the Salmon River Reservoir in New York, with one of the images being from the summer, and the other from the winter. Notice the snow in the winter image.</p>
+        <figure>
+            <img id="big" src="imgs/salmon-summer.jpg">
+            <figcaption><em>Summer (Low-Pass)</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/salmon-winter.jpg">
+            <figcaption><em>Winter (High-Pass)</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/salmon_hybrid.png">
+            <figcaption><em>Hybrid image</em></figcaption>
+        </figure>
+        <br>
+        <p>Finally, I tried a hybrid image of two pictures I took of myself doing a jump while rock climbing - with the first picture taken before the jump, and the second picture taken after the jump. This ended up being a failure case - because I am at two different places in each image, you can still see faint signs of both images in the hybrid image no matter where you look at it from.</p>
+        <figure>
+            <img id="big" src="imgs/static.jpg">
+            <figcaption><em>Before Jump (Low-Pass)</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/dyno.jpg">
+            <figcaption><em>After Jump (High-Pass)</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/climbing.png">
+            <figcaption><em>Hybrid image</em></figcaption>
+        </figure>
+        <p>To illustrate the process of a successful hybrid image, I took images of the fourier transform of various parts of the process as applied to the first set of images converted to grayscale.</p>
+        <div style="margin-left: calc(50% - 680px);">
+            <figure>
+                <img id="mag_small" src="imgs/fft_1.png">
+                <figcaption><em>Fourier Transform<br>of Miso</em></figcaption>
+            </figure>
+            <figure>
+                <img id="mag_small" src="imgs/fft_2.png">
+                <figcaption><em>Fourier Transform<br>of Me</em></figcaption>
+            </figure>
+            <figure>
+                <img id="mag_small" src="imgs/fft_3.png">
+                <figcaption><em>Fourier Transform of<br>High-Pass Filter of Miso</em></figcaption>
+            </figure>
+            <figure>
+                <img id="mag_small" src="imgs/fft_4.png">
+                <figcaption><em>Fourier Transform of<br>Low-Pass Filter of Me</em></figcaption>
+            </figure>
+            <figure>
+                <img id="mag_small" src="imgs/fft_5.png">
+                <figcaption><em>Fourier Transform of<br>Hybrid Image</em></figcaption>
+            </figure>
+        </div>
+        <h1 id="section">Part 2.3 - Gaussian and Laplacian Stacks</h1>
+        <h2 id="subsection">Overview</h2>
+        <p>For this section, I implemented the results of a 1983 paper to blend two images together, with the "oraple" (orange + apple) example shown in this part. Specifically, this blending process involved finding Laplacian stacks for each image and taking a mask (for the Oraple example, a simple binary left-right mask) and repeatedly convolving it with a 2D Gaussian. Then, each level of the Laplacian stack is multiplied with the corresponding level of the blurred mask, and all of these multiplied results are added together to get a nicely blended image.</p>
+        <br>
+        <p>This section illustrates the Laplacian stack of both the apple and orange, and the result of averaging these. The final Oraple image is shown in the next section</p>
+        <h2 id="subsection">Results</h2>
+        <figure>
+            <img id="big" src="imgs/lap1.png">
+            <figcaption><em>Laplacian Stack of Apple, Level 1</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap2.png">
+            <figcaption><em>Laplacian Stack of Orange, Level 1</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap3.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 1</em></figcaption>
+        </figure>
+        <br>
+        <figure>
+            <img id="big" src="imgs/lap4.png">
+            <figcaption><em>Laplacian Stack of Apple, Level 3</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap5.png">
+            <figcaption><em>Laplacian Stack of Orange, Level 3</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap6.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 3</em></figcaption>
+        </figure>
+        <br>
+        <figure>
+            <img id="big" src="imgs/lap7.png">
+            <figcaption><em>Laplacian Stack of Apple, Level 5</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap8.png">
+            <figcaption><em>Laplacian Stack of Orange, Level 5</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap9.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 5</em></figcaption>
+        </figure>
+        <br>
+        <figure>
+            <img id="big" src="imgs/lap10.png">
+            <figcaption><em>Laplacian Stack of Apple, Level 6</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap11.png">
+            <figcaption><em>Laplacian Stack of Orange, Level 6</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/lap12.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 6</em></figcaption>
+        </figure>
+        <br>
+        <h1 id="section">Part 2.4 - Multiresolution Blending</h1>
+        <h2 id="subsection">Overview</h2>
+        <p>This section illustrates the results of the process described in the previous part, both applied to the Oraple and to several new images, with different masks for the new images.</p>
+        <h2 id="subsection">Results</h2>
+        <div style="margin-left: calc(50% - 400px);">
+        <figure>
+            <img width=700 src="imgs/oraple.png">
+            <figcaption><em>Full Oraple Image</em></figcaption>
+        </figure>
+        </div>
+        <p>After the Oraple example, I took the same image from the Salmon River Reservoir that I used as part of a hybrid image in 2.2, and blended it with an image of Mt. Rainier, to make it look like Mt. Rainier is behind the reservoir:</p>
+        <br>
+        <div style="margin-left: calc(50% - 400px);">
+            <figure>
+                <img width=700 src="imgs/rainier_salmon.png">
+                <figcaption><em>Blended Image of Salmon River Reservoir and Mt. Rainier</em></figcaption>
+            </figure>
+        </div>
+        <p>Next, I took an image of a Trek Domane SL5 bike, the same model of road bike that I have, and blended it with an image of the moon:</p>
+        <div style="margin-left: calc(50% - 400px);">
+            <figure>
+                <img width=700 src="imgs/tothemoon.png">
+                <figcaption><em>Biking on the Moon</em></figcaption>
+            </figure>
+        </div>
+        <br>
+        <p>Here are some selected portions of the Laplacian stack for the previous blending:</p>
+        <figure>
+            <img id="big" src="imgs/mlap1.png">
+            <figcaption><em>Laplacian Stack of Bike, Level 1</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/mlap2.png">
+            <figcaption><em>Laplacian Stack of Moon, Level 1</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/mlap3.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 1</em></figcaption>
+        </figure>
+        <br>
+        <figure>
+            <img id="big" src="imgs/mlap4.png">
+            <figcaption><em>Laplacian Stack of Bike, Level 5</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/mlap5.png">
+            <figcaption><em>Laplacian Stack of Moon, Level 5</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/mlap6.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 5</em></figcaption>
+        </figure>
+        <br>
+        <figure>
+            <img id="big" src="imgs/mlap7.png">
+            <figcaption><em>Laplacian Stack of Bike, Level 6</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/mlap8.png">
+            <figcaption><em>Laplacian Stack of Moon, Level 6</em></figcaption>
+        </figure>
+        <figure>
+            <img id="big" src="imgs/mlap9.png">
+            <figcaption><em>Averaged Laplacian Stack, Level 6</em></figcaption>
+        </figure>
+        <br>
+        <h1 id="section">Outcome</h1>
+        <p>I had a lot of fun working on this project! The most important thing I learned from this project was that when you apply results from papers like the ones in 2.2 and 2.3-4 and apply them to your own images, it can take a lot of tweaking of parameters to get the results to look good and look similar to the paper results.</p>
+    </body>
+
+    <script>
+    </script>
+</html>
+
